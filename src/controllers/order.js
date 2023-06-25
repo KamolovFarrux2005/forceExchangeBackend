@@ -12,6 +12,25 @@ const getAllOrder = async(req,res) =>  {
     }
 }
 
+const createOrder = async(req,res)=>{
+    try {
+        const order = await OrderModel.create({
+            usdtPrice: req.body.price,
+            address: req.body.address,
+            telAndUsername: req.body.telAndUsername,
+            uzsTotal: req.body.uzsTotal,
+            usdtTotal: req.body.usdtTotal,
+            name: req.body.name
+        })
+        await order.save();
+        
+        res.json({
+            data: order
+        })
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 
 const deleteOrder = async(req,res)=>{
     try{
@@ -28,5 +47,6 @@ const deleteOrder = async(req,res)=>{
 
 module.exports = {
     getAllOrder,
-    deleteOrder
+    deleteOrder,
+    createOrder
 }
